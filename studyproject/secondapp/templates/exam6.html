@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>결과</h1>
+<p>
+    {% if num %} <!-- num이라고 보관 되어 있는 Value가 있는가?-->
+         <h2>결과 값 : {{ num }}</h2>
+    {% else %}
+        <form method="POST" action="/secondapp/exam6/">  <!-- form태그화면이 브라우저에 출력 -->
+            {% csrf_token %}
+            <input type="number" name="number" placeholder="숫자를 입력하세요" required>
+            <input type="submit" value="POST방식으로요청~~~">
+        </form>
+    {% endif %}
+</p>
+
+</body>
+</html>
