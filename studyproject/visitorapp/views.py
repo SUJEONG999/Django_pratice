@@ -14,7 +14,9 @@ def v_read(request) :
     page = request.GET.get('page', 1)
     vlist = Visitor.objects.all()
     paginator = Paginator(vlist, 3)
+    #print(paginator)
     vlistpage = paginator.get_page(page)
+    #print(type(vlistpage))
     context = {"vlist": vlistpage}
     return render(request, 'visitor_crud.html', context)
 
@@ -30,18 +32,18 @@ def v_update(request):
         pk = request.GET.get("pk")
         visitor = Visitor.objects.get(pk=pk)
         jsonContent = {"name" : visitor.name, "memo": visitor.memo }
-        return JsonResponse( jsonContent, json_dumps_params={'ensure_ascii':False})
+        return JsonResponse( jsonContent, json_dumps_params={'ensure_ascii':False}) # 직접 응답
 
 def v_delete(request) :
     pk = request.GET['pk']
     visitor = Visitor.objects.get(pk=pk)
     visitor.delete()
-    return redirect("vR")
+    return redirect("vR") # vR을 다시 요청하게 함.
 
 def reply_create(request):
     content = request.GET['content']
     pk = request.GET['pk']
-    visitor = Visitor.objects.get(pk=pk)
+    visitor = Visitor.objects.get(pk=pk) # pk=pk, id=pk
     rdata = Reply(content=content, visitor=visitor)
     rdata.save()
     return JsonResponse({"result":"success"})
@@ -64,7 +66,7 @@ def search1(request, name) :
     paginator = Paginator(vlist, 3)
     vlistpage = paginator.get_page(page)
     context = {"vlist": vlistpage}
-    return render(request, 'visitor_crud.html', context)
+    return render(request, 'visitor_crud.html', context)  # 특정 탬플릿에 넘겨서 응답하게끔
 
 def search2(request, content):
     page = request.GET.get('page', 1)

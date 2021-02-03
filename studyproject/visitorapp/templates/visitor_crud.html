@@ -34,7 +34,7 @@
     <button  onclick="processSearch() ">검색</button>
 </div>
 <div id="btndiv"><button  onclick="displayInputForm() ">글 작성하기</button></div>
-<div id="ccform"  style="display:none">
+<div id="ccform"  style="display:none"> <!-- 화면에 보이지 않게-->
   <h2>의견을 남겨 주세요!</h2>
 	<hr>
 	<form method="post" action="{% url 'vC' %}">
@@ -73,7 +73,7 @@
         const replycontent = window.prompt("댓글을 작성하세요")
         $.getJSON("{% url 'rC' %}?pk="+pk+"&content="+replycontent, function(jsonObj) {
             alert(jsonObj.result)
-            location.href = "{% url 'vR' %}?page="+{{ vlist.number }};
+            location.href = "{% url 'vR' %}?page="+{{ vlist.number }}; // 자동 새로고침 역할
         });
     }
     function read_reply(pk) {
@@ -85,7 +85,7 @@
         });
     }
     function processSearch() {
-         location.href = '/forthapp/'+$('[name="searchtype"]').val()+'/'+$('[name="keyword"]').val();
+         location.href = '/visitorapp/'+$('[name="searchtype"]').val()+'/'+$('[name="keyword"]').val();
     }
 </script>
 {% endblock %}
